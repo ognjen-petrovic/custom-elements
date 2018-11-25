@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Dynamic: Sort elements</title>
+    <style>
+        body {
+            margin-top: 10vh;
+        }
+
+        div.main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="main">
+        
+        <div style="text-align:center">
+
+            <script>
+                function toggleOrder()
+                {
+                    var hzSort = document.getElementsByTagName('hz-sort-elements')[0];
+                    if (hzSort.hasAttribute('descending'))
+                    {
+                        hzSort.removeAttribute('descending')
+                    }
+                    else
+                    {
+                        hzSort.setAttribute('descending', true);
+                    }
+                }
+
+                function addSomeWords()
+                {
+                    let words = document.getElementById('words');
+                    if (words.value.trim() != '')
+                    {
+                        let p = document.createElement('p');
+                        p.innerText = words.value;
+                        document.getElementsByTagName('hz-sort-elements')[0].appendChild(p);
+                    }
+                    else
+                    {
+                        alert('No empty words please')
+                    }
+
+                    words.value = '';
+                }
+            </script>
+
+            <div><input type="text" id="words"> <button onclick="addSomeWords()">Add some words</button></div>
+            <br>
+            <button onclick="toggleOrder()">Toggle order</button>
+        </div>
+        
+        <hz-sort-elements descending>
+            <p>A</p>
+            <p>S</p>
+            <p>E</p>
+            <p>G</p>
+        </hz-sort-elements>
+    </div>
+    
+    <script src="../../elements/hz-sort-elements/hz-sort-elements.js"></script>
+    
+</body>
+
+</html>
