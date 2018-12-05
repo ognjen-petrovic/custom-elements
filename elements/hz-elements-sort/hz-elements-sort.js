@@ -5,7 +5,7 @@
       <slot></slot>
     `;
 
-    customElements.define('hz-sort-elements',
+    customElements.define('hz-elements-sort',
         class extends HTMLElement {
             constructor() {
                 super();

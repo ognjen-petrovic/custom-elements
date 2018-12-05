@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Default: Text change</title>
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+
+    <style>
+    hz-text-change{
+        color:green;
+        border:1px solid black;
+        width: 50%;
+        font-size: 1em;
+    }
+    </style>
+</head>
+
+<body>
+
+    <hz-text-change>
+        some football clubs...
+    </hz-text-change>
+
+    <script src="../../elements/hz-text-change/hz-text-change.js"></script>
+    <script>
+        function* genClubs()
+        {
+            yield* ['Arsenal', 'Brighton and Hove Albion', 'Cardiff Digital', 'Everton'];
+        }
+
+        let textElement = document.getElementsByTagName('hz-text-change')[0];
+        console.log(textElement)
+        let clubs = genClubs();
+
+        var t = setInterval(function(){
+            let club = clubs.next();
+            if (club.done == true) {
+                clearInterval(t);
+                return;
+            }
+            textElement.innerText = club.value;
+        }, 3000);
+    </script>
+</body>
+
+</html>
