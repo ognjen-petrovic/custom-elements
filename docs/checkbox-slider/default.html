@@ -14,6 +14,18 @@
             justify-content: center;
         }
 
+        .round{
+            width: 300px;
+        }
+
+        #el1 {
+            --panel-color: orange;
+            --panel-color-checked: purple;
+            --switch-color:black;
+            --panel-width: 120px;
+            --panel-height: 68px;
+        }
+
 
     </style>
     
@@ -21,8 +33,9 @@
 
 <body>
     <div class="main">
-        <checkbox-slider class="rotated" id="el" checked>
-        </checkbox-slider>
+        <checkbox-slider/></checkbox-slider>
+
+        <checkbox-slider id="el1" checked rounded></checkbox-slider>
     </div>
     
     

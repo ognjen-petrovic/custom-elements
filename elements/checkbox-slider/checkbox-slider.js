@@ -1,42 +1,43 @@
 const style = `
-label {
+:host {
+    --panel-width: 60px;
+    --panel-height: 34px;
+    --panel-color: red;
+    --panel-color-checked: green;
+    --switch-color: white;
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-
-span {
-    position: absolute;
+    width: var(--panel-width);
+    height: var(--panel-height);
+    background-color: var(--panel-color);
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #2da160;
-    transition: .4s;
+    transition: background-color 1s ease-out;
 }
 
-span:before {
+:host:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: calc(var(--panel-height) - 8px);
+    width: calc(var(--panel-height) - 8px);
     left: 4px;
-    bottom: 4px;
-    background-color: white;
+    top: 4px;
+    background-color: var(--switch-color);
     transition: .4s;
 }
 
-span.checked:before {
-    transform: translateX(26px);
+:host([checked]){
+    background-color: var(--panel-color-checked);
 }
 
-.round {
-    border-radius: 34px;
+:host([checked]):before {
+    transform: translateX( calc(var(--panel-width) - var(--panel-height)) );
+}
+
+:host([rounded]) {
+    border-radius: var(--panel-height);
 }
   
-.round:before {
+:host([rounded]):before {
     border-radius: 50%;
 }
 `
@@ -44,25 +45,14 @@ class CheckboxSlider extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: 'open' })
-        /*
-            <label><span class="round"></span></label>
-        */
-        const label = document.createElement('label')
-
-        this.span = document.createElement('span')
-        this.span.className = 'round'
-        label.append(this.span)
-
         const style_el = document.createElement('style')
         style_el.textContent = style
-        this.shadowRoot.append(style_el, label)
+        this.shadowRoot.append(style_el)
 
         this.addEventListener('click', () => {
             this.checked = !this.checked
             this.dispatchEvent(new Event('change'))
         })
-
-        this.checked = false
     }
 
     get type() {
@@ -70,18 +60,14 @@ class CheckboxSlider extends HTMLElement {
     }
 
     get checked() {
-        return this._checked
+        return this.hasAttribute('checked')
     }
 
     set checked(is_checked) {
         if (is_checked) {
             this.setAttribute('checked', '');
-            this._checked = true
-            this.span.classList.add('checked')
         } else {
             this.removeAttribute('checked');
-            this._checked = false
-            this.span.classList.remove('checked')
         }
     }
 
@@ -89,13 +75,13 @@ class CheckboxSlider extends HTMLElement {
         return ['checked']
     }
 
-    attributeChangedCallback(name, new_value, old_value) {
-        switch(name) {
-            case 'checked':
-                this.checked = new_value == null ? true:false
-            break
-        }
-    }
+    // attributeChangedCallback(name, new_value, old_value) {
+    //     switch(name) {
+    //         case 'checked':
+    //             console.log(name, new_value, old_value)
+    //         break
+    //     }
+    // }
 
 }
 
