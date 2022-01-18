@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Defaut: Checkbox slider</title>
+    <title>Defaut: Countdown timer</title>
     <script type="module" src="../../elements/countdown-timer/countdown-timer.js"></script>
     <style>
         body {
@@ -21,11 +21,11 @@
 
 <body>
     <div class="main">
-        <countdown-timer style="color: red;">
-        </checkbox-slider>
+        <countdown-timer style="color: red;" duration="180"></countdown-timer>
+        <script>
+            window.addEventListener('load', () => document.querySelector('countdown-timer').start())
+        </script>
     </div>
-    
-    
 </body>
 
 </html>
