@@ -17,15 +17,18 @@ class CountdownTimer extends HTMLElement {
         this._setDuration()
         this._display()
         this._interval = setInterval(() => this._tick(), 1000)
+        return this
     }
 
     stop() {
         clearInterval(this._interval)
+        return this
     }
 
     clear () {
         this.stop()
         this.shadowRoot.textContent = ''
+        return this
     }
 
     _setDuration() {

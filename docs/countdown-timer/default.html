@@ -21,9 +21,11 @@
 
 <body>
     <div class="main">
-        <countdown-timer style="color: red;" duration="180"></countdown-timer>
+        <countdown-timer style="color: red;" duration="10"></countdown-timer>
         <script>
-            window.addEventListener('load', () => document.querySelector('countdown-timer').start())
+            window.addEventListener('load', () => {
+                document.querySelector('countdown-timer').start().addEventListener('done', () => alert('done...'))
+            })
         </script>
     </div>
 </body>
