@@ -6,3 +6,9 @@ Web Components - Custom Elements
 [Sort elements](//ognjen-petrovic.github.io/custom-elements/docs/hz-elements-sort/index.html)
 
 [Text change](//ognjen-petrovic.github.io/custom-elements/docs/hz-text-change/index.html)
+
+[Checkbox slider](//ognjen-petrovic.github.io/custom-elements/docs/checkbox-slider/index.html)
+
+[Countdown timer](//ognjen-petrovic.github.io/custom-elements/docs/countdown-timer/index.html)
+
+
