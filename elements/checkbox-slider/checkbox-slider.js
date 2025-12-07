@@ -40,50 +40,55 @@ const style = `
 :host([rounded]):before {
     border-radius: 50%;
 }
-`
+`;
 class CheckboxSlider extends HTMLElement {
-    constructor() {
-        super()
-        this.attachShadow({ mode: 'open' })
-        const style_el = document.createElement('style')
-        style_el.textContent = style
-        this.shadowRoot.append(style_el)
+  static formAssociated = true;
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    const style_el = document.createElement("style");
+    style_el.textContent = style;
+    this.shadowRoot.append(style_el);
 
-        this.addEventListener('click', () => {
-            this.checked = !this.checked
-            this.dispatchEvent(new Event('change'))
-        })
+    this._internals = this.attachInternals();
+    this._internals.setFormValue(this.checked ? "on" : "");
+
+    this.addEventListener("click", () => {
+      this.checked = !this.checked;
+      this.dispatchEvent(new Event("change"));
+    });
+  }
+
+  get type() {
+    return "checkbox";
+  }
+
+  get checked() {
+    return this.hasAttribute("checked");
+  }
+
+  set checked(is_checked) {
+    if (is_checked) {
+      this.setAttribute("checked", "");
+      this._internals.setFormValue("on");
+    } else {
+      this.removeAttribute("checked");
+      this._internals.setFormValue("");
     }
+  }
 
-    get type() {
-        return 'checkbox'
-    }
+  static get observedAttributes() {
+    return ["checked"];
+  }
 
-    get checked() {
-        return this.hasAttribute('checked')
-    }
-
-    set checked(is_checked) {
-        if (is_checked) {
-            this.setAttribute('checked', '');
-        } else {
-            this.removeAttribute('checked');
-        }
-    }
-
-    static get observedAttributes() {
-        return ['checked']
-    }
-
-    // attributeChangedCallback(name, new_value, old_value) {
-    //     switch(name) {
-    //         case 'checked':
-    //             console.log(name, new_value, old_value)
-    //         break
-    //     }
-    // }
-
+  // attributeChangedCallback(name, new_value, old_value) {
+  //     switch(name) {
+  //         case 'checked':
+  //             console.log(name, new_value, old_value)
+  //         break
+  //     }
+  // }
 }
 
-customElements.define('checkbox-slider', CheckboxSlider)
-export default CheckboxSlider
+customElements.define("checkbox-slider", CheckboxSlider);
+export default CheckboxSlider;
